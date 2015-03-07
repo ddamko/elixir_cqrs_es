@@ -1,0 +1,58 @@
+2015-03-04T11:59:52.933873071 0.074794s notice: Recursively removing directory /home/derek/projects/elixir_eventstore/rethinkdb_data/tmp
+2015-03-04T11:59:52.971968800 0.112889s notice: Initializing directory /home/derek/projects/elixir_eventstore/rethinkdb_data
+2015-03-04T11:59:52.972089315 0.113009s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/derek/projects/elixir_eventstore/rethinkdb_data' did not already exist or is empty.)
+2015-03-04T11:59:52.972122285 0.113042s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-04T11:59:52.981239017 0.122161s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-04T11:59:52.981317270 0.122237s notice: Loading data from directory /home/derek/projects/elixir_eventstore/rethinkdb_data
+2015-03-04T11:59:53.706504343 0.847424s info: Automatically using cache size of 4280 MB
+2015-03-04T11:59:53.707833857 0.848754s notice: Listening for intracluster connections on port 29015
+2015-03-04T11:59:53.708869910 0.849790s notice: Listening for client driver connections on port 28015
+2015-03-04T11:59:53.708982685 0.849902s notice: Listening for administrative HTTP connections on port 8080
+2015-03-04T11:59:53.708984914 0.849904s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-04T11:59:53.708986502 0.849906s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-04T11:59:53.708988098 0.849908s notice: Server ready, "tardis_yie" 815b2bf7-a475-4654-aeb6-68959af2411b
+2015-03-04T13:12:28.545483494 4355.686403s notice: Connected to server "tardis_l0z" 2f59ca21-db42-44bf-9fc1-85d00f312a0a
+2015-03-04T13:13:22.905518679 4410.046439s notice: Connected to server "tardis_x54" 72fc47dd-a905-472e-ae1c-ac211f07bbcd
+2015-03-05T08:46:31.813704024 0.032180s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-05T08:46:31.817153943 0.035631s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-05T08:46:31.817200313 0.035676s notice: Loading data from directory /home/derek/projects/elixir_eventstore/rethinkdb_data
+2015-03-05T08:46:32.057798122 0.276274s info: Automatically using cache size of 3399 MB
+2015-03-05T08:46:32.058528808 0.277004s notice: Listening for intracluster connections on port 29015
+2015-03-05T08:46:32.059306006 0.277782s notice: Listening for client driver connections on port 28015
+2015-03-05T08:46:32.059384453 0.277860s notice: Listening for administrative HTTP connections on port 8080
+2015-03-05T08:46:32.059385780 0.277861s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-05T08:46:32.059386802 0.277862s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-05T08:46:32.059387826 0.277863s notice: Server ready, "tardis_yie" 815b2bf7-a475-4654-aeb6-68959af2411b
+2015-03-05T08:46:35.190100868 3.408577s notice: Connected to server "tardis_l0z" 2f59ca21-db42-44bf-9fc1-85d00f312a0a
+2015-03-05T08:47:06.933857098 35.152333s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-03-05T08:47:06.934007156 35.152483s notice: Shutting down client connections...
+2015-03-05T08:47:06.934178060 35.152654s notice: All client connections closed.
+2015-03-05T08:47:06.934183402 35.152659s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-03-05T08:47:06.939349993 35.157826s notice: Storage engine shut down.
+2015-03-05T08:47:06.939836716 35.158313s info: Disconnected from server "tardis_l0z" 2f59ca21-db42-44bf-9fc1-85d00f312a0a
+2015-03-05T08:48:39.444520860 0.075162s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-05T08:48:39.449743782 0.080386s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-05T08:48:39.449827929 0.080469s notice: Loading data from directory /home/derek/projects/elixir_eventstore/rethinkdb_data
+2015-03-05T08:48:39.656339396 0.286980s info: Automatically using cache size of 3390 MB
+2015-03-05T08:48:39.657435826 0.288077s notice: Listening for intracluster connections on port 29015
+2015-03-05T08:48:39.658416997 0.289058s notice: Listening for client driver connections on port 28015
+2015-03-05T08:48:39.658520074 0.289161s notice: Listening for administrative HTTP connections on port 8080
+2015-03-05T08:48:39.658522516 0.289163s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-05T08:48:39.658524335 0.289165s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-05T08:48:39.658526119 0.289167s notice: Server ready, "tardis_yie" 815b2bf7-a475-4654-aeb6-68959af2411b
+2015-03-05T08:48:52.979408450 13.610050s notice: Connected to server "tardis_l0z" 2f59ca21-db42-44bf-9fc1-85d00f312a0a
+2015-03-05T08:49:00.825289320 21.455930s notice: Connected to server "tardis_x54" 72fc47dd-a905-472e-ae1c-ac211f07bbcd
+2015-03-06T12:36:20.637159099 0.199124s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-06T12:36:20.653844594 0.215812s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-06T12:36:20.653947878 0.215913s notice: Loading data from directory /home/derek/projects/elixir_eventstore/rethinkdb_data
+2015-03-06T12:36:21.085452402 0.647417s info: Automatically using cache size of 5888 MB
+2015-03-06T12:36:21.088511513 0.650476s notice: Listening for intracluster connections on port 29015
+2015-03-06T12:36:21.088558495 0.650523s warn: Attempted to join self, peer ignored
+2015-03-06T12:36:21.088594825 0.650559s info: Attempting connection to 0 peers...
+2015-03-06T12:36:21.315067241 0.877032s notice: Listening for client driver connections on port 28015
+2015-03-06T12:36:21.315217396 0.877182s notice: Listening for administrative HTTP connections on port 8080
+2015-03-06T12:36:21.315218709 0.877183s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-06T12:36:21.315221824 0.877186s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-06T12:36:21.315224869 0.877189s notice: Server ready, "tardis_yie" 815b2bf7-a475-4654-aeb6-68959af2411b
+2015-03-06T12:37:08.353447164 47.915412s notice: Connected to server "tardis_l0z" 2f59ca21-db42-44bf-9fc1-85d00f312a0a
+2015-03-06T12:37:21.784325614 61.346291s notice: Connected to server "tardis_x54" 72fc47dd-a905-472e-ae1c-ac211f07bbcd
