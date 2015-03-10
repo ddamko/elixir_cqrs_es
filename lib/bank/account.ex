@@ -68,8 +68,8 @@ defmodule Bank.Account do
   end
 
   def attempt_command({create, id}, state) do
-    event = Bank.Data.
-
+    event = Bank.Data.account_created(id: id, date_created: :calendar.local_time)
+    apply_new_event(event, state)
   end
 
 end
