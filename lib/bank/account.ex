@@ -37,8 +37,39 @@ defmodule Bank.Account do
     loop(state)
   end
 
-  def loop(state(id: id), state) do
-  
+  def loop(state(id: id), _state) do
+    receive do
+      {:apply_event, event} ->
+        new_state = apply_event(event, state)
+        loop(new_state)
+
+      {:attempt_command, command} ->
+        new_state = apply_event(command, state)
+        loop(new_state)
+
+      {:process_unsaved_changes, saver} ->
+        id = state.state(:id)
+
+        new_state = apply_event(command, state)
+        loop(new_state)
+
+      {:load_from_history, events} ->
+        new_state = apply_many_events(events, state.state())
+        loop(new_state)
+
+      unknown -> 
+        Logger.error("Recieved unknown message: #{unknown}")
+        loop(state)
+    after
+      @timeout ->
+        Bank.AccountRepo.remove_from_cache(id)
+        exit(:normal)
+    end
+  end
+
+  def attempt_command({create, id}, state) do
+    event = Bank.Data.
+
   end
 
 end
