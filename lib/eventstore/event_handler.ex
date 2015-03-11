@@ -7,7 +7,7 @@ defmodule EventStore.EventHandler do
 
     Rethink.Connection.run()
 
-    {:ok, [x|messages]}
+    {:ok, [x|state]}
   end
 
   def handle_call(:messages, messages) do

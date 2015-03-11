@@ -1,5 +1,6 @@
 defmodule Bank.Account do
   require Record
+  require Logger
   require Bank.Data
 
   Record.defrecord :state, [id: 0, date_created: nil, balance: 0, changes: []]
@@ -37,7 +38,7 @@ defmodule Bank.Account do
     loop(state)
   end
 
-  def loop(state(id: id), _state) do
+  def loop(state = state(id: id)) do
     receive do
       {:apply_event, event} ->
         new_state = apply_event(event, state)
@@ -49,27 +50,43 @@ defmodule Bank.Account do
 
       {:process_unsaved_changes, saver} ->
         id = state.state(:id)
-
-        new_state = apply_event(command, state)
+        saver.(id, :lists.reverse(state(:changes)))
+        new_state = state(changes: [])
         loop(new_state)
 
       {:load_from_history, events} ->
-        new_state = apply_many_events(events, state.state())
+        new_state = apply_many_events(events, state())
         loop(new_state)
 
       unknown -> 
         Logger.error("Recieved unknown message: #{unknown}")
         loop(state)
-    after
-      @timeout ->
-        Bank.AccountRepo.remove_from_cache(id)
-        exit(:normal)
+    # after
+    #   @timeout ->
+    #     Bank.AccountRepo.remove_from_cache(id)
+    #     exit(:normal)
     end
   end
 
-  def attempt_command({create, id}, state) do
+  def attempt_command({:create, id}, state) do
     event = Bank.Data.account_created(id: id, date_created: :calendar.local_time)
     apply_new_event(event, state)
   end
 
+  def attempt_command({:deposit_money, amount}, state) do
+    new_balance = state(:balance + amount)
+    IO.puts "New Balance = #{new_balance} State: #{state}"
+  end
+
+  def apply_new_event(event, state) do
+    IO.puts "New Event: #{event} State: #{state}"
+  end
+
+  def apply_event(event, state) do
+    IO.puts "Event: #{event} State: #{state}"
+  end
+
+  def apply_many_events(event, state) do
+    IO.puts "Many Events: #{event} State: #{state}"
+  end
 end
