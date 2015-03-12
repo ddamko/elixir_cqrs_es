@@ -12,7 +12,7 @@ defmodule ElixirEventstore.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :rethink]]
+    [applications: [:logger, :rethink, :exts]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,7 +28,8 @@ defmodule ElixirEventstore.Mixfile do
     [
       {:rethink, github: "EddyShure/rethink"},
       {:uuid, "~> 0.1.5" },
-      {:json,   "~> 0.3.0"}
+      {:json, "~> 0.3.0" },
+      {:exts, "~> 0.2.2" }
     ]
   end
 end

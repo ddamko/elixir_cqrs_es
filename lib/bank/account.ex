@@ -45,11 +45,11 @@ defmodule Bank.Account do
         loop(new_state)
 
       {:attempt_command, command} ->
-        new_state = apply_event(command, state)
+        new_state = attempt_command(command, state)
         loop(new_state)
 
       {:process_unsaved_changes, saver} ->
-        id = state.state(:id)
+        id = state(:id)
         saver.(id, :lists.reverse(state(:changes)))
         new_state = state(changes: [])
         loop(new_state)
@@ -69,24 +69,33 @@ defmodule Bank.Account do
   end
 
   def attempt_command({:create, id}, state) do
-    event = Bank.Data.account_created(id: id, date_created: :calendar.local_time)
+    event = Bank.Data.account_created(
+      id: id, 
+      date_created: :calendar.local_time)
     apply_new_event(event, state)
   end
 
   def attempt_command({:deposit_money, amount}, state) do
-    new_balance = state(:balance + amount)
-    IO.puts "New Balance = #{new_balance} State: #{state}"
+    new_balance = state(balance: + amount)
+    id = state(:id)
+    event = Bank.Data.money_deposited(
+      id: id,
+      amount: amount,
+      new_balance: new_balance,
+      transaction_date: :calendar.local_time)
+    apply_new_event(event, state)
+    IO.puts "Deposit Money"
   end
 
   def apply_new_event(event, state) do
-    IO.puts "New Event: #{event} State: #{state}"
+    IO.puts "Apply New Event"
   end
 
-  def apply_event(event, state) do
-    IO.puts "Event: #{event} State: #{state}"
+  def apply_event({:account_created, id: id, date_created: date_created}, state) do
+    IO.puts "Apply Event"
   end
 
   def apply_many_events(event, state) do
-    IO.puts "Many Events: #{event} State: #{state}"
+    IO.puts "Apply Many Events"
   end
 end

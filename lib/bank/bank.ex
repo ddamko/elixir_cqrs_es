@@ -2,11 +2,11 @@ defmodule Bank do
   require Bank.Data
 
   def open do
-    BankApp.start(bank)
+    BankApp.start()
   end
 
-  def close(bank) do
-    BankApp.stop(bank)
+  def close() do
+    BankApp.stop()
   end
 
   def create(account) do
