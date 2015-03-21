@@ -1,8 +1,17 @@
 defmodule Bank do
-  require Bank.Data
+  ## Commands
+  alias Bank.Commands.CreateAccount
+  alias Bank.Commands.DepositMoney
+  alias Bank.Commands.WithdrawMoney
+
+  ## Event Bus
+  alias Bank.EventBus
+
+  ## Readstore
+  alias Bank.ReadStore
 
   def open do
-    BankApp.start()
+    BankApp.start(:type,:args)
   end
 
   def close() do
@@ -10,19 +19,19 @@ defmodule Bank do
   end
 
   def create(account) do
-    Bank.EventBus.send_command(Bank.Data.create_account(id: account))
+    EventBus.send_command %{%CreateAccount{} | :id => account}
   end
 
   def deposit(account, amount) do
-    Bank.EventBus.send_command(Bank.Data.deposit_money(id: account, amount: amount))
+    EventBus.send_command %{%DepositMoney{} | :id => account, :amount => amount}
   end
 
   def withdraw(account, amount) do
-    Bank.EventBus.send_command(Bank.Data.withdraw_money(id: account, amount: amount))
+    EventBus.send_command %{%WithdrawMoney{} | :id => account, :amount => amount}
   end
 
-  def balance(account) do
-    details = Bank.ReadStore.get_account_details()
+  def check_balance(account) do
+    details = ReadStore.get_account_details()
     dict = details |> Enum.into(HashDict.new)
     case dict.fetch(dict, account) do
       {:ok, value} -> value

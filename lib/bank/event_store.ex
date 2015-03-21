@@ -2,6 +2,9 @@ defmodule Bank.EventStore do
   require Exts
   @table_id __MODULE__
 
+  ## Event Bus
+  alias Bank.EventBus
+
   def init() do
     Exts.new(@table_id, [:public, :named_table])
   end
@@ -11,8 +14,8 @@ defmodule Bank.EventStore do
     new_events      = :lists.reverse(events)
     combined_events = new_events <> stored_events
 
-    Exts.insert(@table_id, {key, combined_events})
-    :lists.foreach(fn (event) -> Bank.EventBus.publish_event(event) end, new_events)
+    Exts.write(@table_id, {key, combined_events})
+    :lists.foreach(fn (event) -> EventBus.publish_event(event) end, new_events)
   end
 
   def get_events(key) do
