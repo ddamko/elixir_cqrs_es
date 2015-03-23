@@ -19,6 +19,13 @@ defmodule Bank.AccountRepo do
     end
   end
 
+  def save(pid) do
+    saver = fn(id, events) ->
+      EventStore.append_events(id, events)
+    end
+    Account.process_unsaved_changes(pid, saver)
+  end
+  
   def load_from_eventstore(id) do
     case EventStore.get_events(id) do
       [] ->

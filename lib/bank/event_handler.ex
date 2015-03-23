@@ -26,10 +26,44 @@ defmodule Bank.EventHandler do
     {:ok, []}
   end
 
-  def handle_event(event = %AccountCreated{}) do
-    id = Map.get(event, :id)
-    AccountSummary.new_bank_account(id)
+  def handle_event(event = %AccountCreated{}, state) do
+    AccountSummary.new_bank_account(event.id)
     AccountDetail.process_event(event)
+    {:ok, state}
   end
 
+  def handle_event(event = %MoneyDeposited{}, state) do
+    AccountDetail.process_event(event)
+    {:ok, state}
+  end
+
+  def handle_event(event = %MoneyWithdrawn{}, state) do
+    AccountDetail.process_event(event)
+    {:ok, state}
+  end
+
+  def handle_event(event = %PaymentDeclined{}, state) do
+    AccountDetail.process_event(event)
+    {:ok, state}
+  end
+
+  def handle_event(_, state) do
+    {:ok, state}
+  end
+
+  def handle_call(_, state) do
+    {:ok, state}
+  end
+  
+  def handle_info(_, state) do
+    {:ok, state}
+  end
+  
+  def terminate(_reason, _state) do
+    :ok
+  end
+
+  def code_chamge(_old_vsn, state, _extra) do
+    {:ok, state}
+  end
 end

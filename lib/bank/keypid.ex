@@ -3,6 +3,7 @@ defmodule Bank.KeyPID do
   @table_id __MODULE__
 
   def init() do
+    IO.puts "KeyPID Table Created"
     Exts.new(@table_id, [:public, :named_table])
   end
 

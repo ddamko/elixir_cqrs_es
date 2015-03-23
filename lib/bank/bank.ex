@@ -11,7 +11,7 @@ defmodule Bank do
   alias Bank.ReadStore
 
   def open do
-    BankApp.start(:type,:args)
+    BankApp.start(:type, :args)
   end
 
   def close() do
