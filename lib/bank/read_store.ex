@@ -5,7 +5,7 @@ defmodule Bank.ReadStore do
 
   def init() do
     :ets.new(:read_store_summary_views, [:public, :named_table])
-    set_bank_account_summary([%AccountSummary{}])
+    set_bank_account_summary([%{%AccountSummary{} | :count_of_accounts => 0}])
     set_bank_account_details([])
   end
 
@@ -15,6 +15,7 @@ defmodule Bank.ReadStore do
   end
 
   def set_bank_account_summary(new_data) do
+    #IO.inspect(new_data)
     :ets.insert(:read_store_summary_views, {:bank_account_summary, new_data})
   end
   

@@ -59,7 +59,6 @@ defmodule Bank.Account do
 
       {:attempt_command, command} ->
         new_state = attempt_command(command, state)
-        IO.inspect(new_state)
         loop(new_state)
 
       {:process_unsaved_changes, saver} ->

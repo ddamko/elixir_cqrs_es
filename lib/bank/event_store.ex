@@ -14,7 +14,9 @@ defmodule Bank.EventStore do
     combined_events = stored_events ++ new_events
     
     :ets.insert(@table_id, {key, combined_events})
-    :lists.foreach(fn (event) -> EventBus.publish_event(event) end, new_events)
+    :lists.foreach(fn (event) -> 
+      EventBus.publish_event(event)
+    end, new_events)
   end
 
   def get_events(key) do

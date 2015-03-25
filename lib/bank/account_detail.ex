@@ -17,7 +17,9 @@ defmodule Bank.AccountDetail do
   end
   
   def process_event(event) do
-    GenServer.cast({@server, __MODULE__}, event)
+    {:ok, pid} = @server.start_link
+    GenServer.cast(pid, {:event, event})
+    IO.inspect(event)
   end
 
   def init(:ok) do
@@ -30,31 +32,28 @@ defmodule Bank.AccountDetail do
     {:reply, :ok, state}
   end
   
-  def handle_cast(event = %AccountCreated{}, details) do
-    id = Map.get(event, :id)
-    new_details = :dict.store(id, 0, details)
+  def handle_cast({:event, event = %AccountCreated{}}, details) do
+    new_details = :dict.store(event.id, 0, details)
+    IO.puts "Account Created"
     update_read_store(new_details)
     {:noreply, new_details}
   end
 
-  def handle_cast(event = %MoneyWithdrawn{}, details) do
-    id = Map.get(event, :id)
-    balance = Map.get(event, :balance)
-    new_details = :dict.store(id, balance, details)
+  def handle_cast({:event, event = %MoneyWithdrawn{}}, details) do
+    new_details = :dict.store(event.id, event.new_balance, details)
+    IO.puts "Money Withdrawn"
     update_read_store(new_details)
     {:noreply, new_details}
   end
 
-  def handle_cast(event = %PaymentDeclined{}, details) do
-    id = Map.get(event, :id)
-    Logger.error("Payment declined for Account: ~p. Shame, shame!~n", [id])
+  def handle_cast({:event, event = %PaymentDeclined{}}, details) do
+    Logger.error("Payment declined for Account: ~p. Shame, shame!~n", [event.id])
     {:noreply, details}
   end
 
-  def handle_cast(event = %MoneyDeposited{}, details) do
-    id = Map.get(event, :id)
-    balance = Map.get(event, :balance)
-    new_details = :dict.store(id, balance, details)
+  def handle_cast({:event, event = %MoneyDeposited{}}, details) do
+    new_details = :dict.store(event.id, event.new_balance, details)
+    IO.puts "Money Deposited"
     update_read_store(new_details)
     {:noreply, new_details}
   end
