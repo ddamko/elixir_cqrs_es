@@ -35,13 +35,16 @@ defmodule Bank.CommandHandler do
         AccountRepo.save(pid)
         {:ok, state}
       
+      [] ->
+        {:ok, state}
+        
       _ ->
         {:ok, state}
     end
   end
   
   def handle_event(event = %DepositMoney{}, state) do
-    case AcccountRepo.get_by_id(event.id) do
+    case AccountRepo.get_by_id(event.id) do
       :not_found ->
         {:ok, state}
 
@@ -53,7 +56,7 @@ defmodule Bank.CommandHandler do
   end
 
   def handle_event(event = %WithdrawMoney{}, state) do
-    case AcccountRepo.get_by_id(event.id) do
+    case AccountRepo.get_by_id(event.id) do
       :not_found ->
         {:ok, state}
 

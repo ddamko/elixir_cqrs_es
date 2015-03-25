@@ -8,8 +8,8 @@ defmodule BankApp do
 
     case Bank.Suppervisor.start_link() do
       {:ok, pid} ->
-        Bank.CommandHandler.add_handler()
         Bank.EventHandler.add_handler()
+        Bank.CommandHandler.add_handler()
         {:ok, pid}
 
       error -> {:error, error}

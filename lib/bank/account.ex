@@ -47,7 +47,7 @@ defmodule Bank.Account do
   end
 
   def init() do
-    state = %{%State{} | :balance => 0}
+    state = %{%State{} | :balance => 0, :changes => []}
     loop(state)
   end
 
@@ -55,17 +55,18 @@ defmodule Bank.Account do
     receive do
       {:apply_event, event} ->
         new_state = apply_event(event, state)
+        IO.puts "Apply Event"
+        IO.inspect(new_state)
         loop(new_state)
 
       {:attempt_command, command} ->
         new_state = attempt_command(command, state)
+        IO.puts "Attmempt Command"
+        IO.inspect(new_state)
         loop(new_state)
 
       {:process_unsaved_changes, saver} ->
-        id = state.id
-        changes = state.changes
-
-        saver.(id, :lists.reverse(changes))
+        saver.(state.id, :lists.reverse(state.changes))
         new_state = state.changes
         loop(new_state)
 
@@ -78,7 +79,7 @@ defmodule Bank.Account do
         loop(state)
     after
       @timeout ->
-        AccountRepo.remove_from_cache(state.id)
+        #AccountRepo.remove_from_cache(state.id)
         exit(:normal)
     end
   end
@@ -90,8 +91,7 @@ defmodule Bank.Account do
 
   def attempt_command({:deposit_money, amount}, state) do
     new_balance = Map.update(state, :balance, 0, &(&1 + amount))
-    id = Map.get(state, :id)
-    event = %{%MoneyDeposited{} | :id => id, :amount => amount, :new_balance => new_balance.balance, :transaction_date => :calendar.local_time}
+    event = %{%MoneyDeposited{} | :id => state.id, :amount => amount, :new_balance => new_balance.balance, :transaction_date => :calendar.local_time}
     apply_new_event(event, state)
   end
 
@@ -107,40 +107,33 @@ defmodule Bank.Account do
     apply_new_event(event, state)
   end
 
-  def attempt_command(command, state) do
+  def attempt_command(_command, state) do
     Logger.error("attempt_command for unexpected command")
     state
   end
 
   def apply_new_event(event, state) do
     new_state = apply_event(event, state)
-    Map.update(new_state, :changes, [], &[event|&1])
+    state_changes = Map.update(new_state, :changes, [], &[event|&1])
   end
 
   def apply_event(event = %AccountCreated{}, state) do
-    id = Map.get(event, :id)
-    date = Map.get(event, :date_created)
-    AccountRepo.add_to_cache(id)
-    %{state | :id => id, :date_created => date}
+    AccountRepo.add_to_cache(event.id)
+    new_state = %{state | :id => event.id, :date_created => event.date_created}
   end
 
   def apply_event(event = %MoneyDeposited{}, state) do
-    amount = Map.get(event, :amount)
-    balance = Map.get(state, :balance)
-    new_balance = balance + amount
-    %{state | :balance => new_balance}
+    new_balance = state.balance + event.amount
+    new_state = %{state | :balance => new_balance}
   end
 
-  def apply_event(event = %MoneyWithdrawn{}, state) do
-    amount = Map.get(event, :amount)
-    balance = Map.get(state, :balance)    
-    new_balance = balance - amount
-    %{state | :balance => new_balance}
+  def apply_event(event = %MoneyWithdrawn{}, state) do    
+    new_balance = state.balance - event.amount
+    new_state = %{state | :balance => new_balance}
   end
 
   def apply_event(event = %PaymentDeclined{}, state) do
     IO.puts "Sorry you do not have enough money."
-    IO.inspect(event)
     state
   end
 

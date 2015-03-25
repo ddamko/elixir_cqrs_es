@@ -11,8 +11,8 @@ defmodule Bank.Suppervisor do
 
   def init(:ok) do
     children = [
-      worker(Bank.EventBus, [], restart: :temporary),
-      worker(Bank.AccountDetail, [], restart: :temporary),
+      worker(Bank.EventBus,       [], restart: :temporary),
+      worker(Bank.AccountDetail,  [], restart: :temporary),
       worker(Bank.AccountSummary, [], restart: :temporary)
     ]
 

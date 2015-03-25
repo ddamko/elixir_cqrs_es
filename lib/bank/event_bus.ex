@@ -2,7 +2,7 @@ defmodule Bank.EventBus do
   @server __MODULE__
 
   def start_link() do
-    GenEvent.start_link([:local, @server])
+    GenEvent.start_link([{:name, @server}])
   end
 
   def add_handler(handler, args) do

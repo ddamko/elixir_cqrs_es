@@ -1,14 +1,14 @@
 defmodule Bank.KeyPID do
-  require Exts
   @table_id __MODULE__
 
+  IO.inspect(@table_id)
+
   def init() do
-    IO.puts "KeyPID Table Created"
-    Exts.new(@table_id, [:public, :named_table])
+    :ets.new(@table_id, [:public, :named_table])
   end
 
   def delete(key) do
-    Exts.delete(@table_id, key)
+    :ets.delete(@table_id, key)
   end
 
   def save(key, pid) do
@@ -16,7 +16,7 @@ defmodule Bank.KeyPID do
   end
 
   def save_helper(key, pid, true) do
-    Exts.insert(@table_id, {key, pid})
+    :ets.insert(@table_id, {key, pid})
   end
 
   def save_helper(_args) do
@@ -24,15 +24,18 @@ defmodule Bank.KeyPID do
   end
 
   def get(key) do
-    case Exts.read(@table_id, key) do
-      {key, pid} ->
+    case :ets.lookup(@table_id, key) do
+      [{key, pid}] ->
         case is_pid(pid) and Process.alive?(pid) do
           true ->
             pid
           false ->
+            IO.puts "Account for #{key} not found..."
             :not_found
         end
-      {_} ->
+      
+      [] ->
+        IO.puts "Creating new account for #{key}..."
         :not_found
     end
   end

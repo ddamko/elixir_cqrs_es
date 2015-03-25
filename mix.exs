@@ -12,7 +12,7 @@ defmodule ElixirCqrsEs.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :rethink, :exts]]
+    [applications: [:logger, :rethink]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,8 +28,7 @@ defmodule ElixirCqrsEs.Mixfile do
     [
       {:rethink, github: "EddyShure/rethink"},
       {:uuid, "~> 0.1.5" },
-      {:json, "~> 0.3.0" },
-      {:exts, "~> 0.2.2" }
+      {:json, "~> 0.3.0" }
     ]
   end
 end

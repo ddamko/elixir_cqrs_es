@@ -19,15 +19,15 @@ defmodule Bank do
   end
 
   def create(account) do
-    EventBus.send_command %{%CreateAccount{} | :id => account}
+    EventBus.send_command(%{%CreateAccount{} | :id => account})
   end
 
   def deposit(account, amount) do
-    EventBus.send_command %{%DepositMoney{} | :id => account, :amount => amount}
+    EventBus.send_command(%{%DepositMoney{} | :id => account, :amount => amount})
   end
 
   def withdraw(account, amount) do
-    EventBus.send_command %{%WithdrawMoney{} | :id => account, :amount => amount}
+    EventBus.send_command(%{%WithdrawMoney{} | :id => account, :amount => amount})
   end
 
   def check_balance(account) do

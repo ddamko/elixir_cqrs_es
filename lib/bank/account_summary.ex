@@ -10,7 +10,7 @@ defmodule Bank.AccountSummary do
   end
 
   def new_bank_account(id) do
-    GenServer.cast(@server, {:new_bank_account, id})
+    GenServer.cast({@server, __MODULE__}, {:new_bank_account, id})
   end
 
   def init(:ok) do

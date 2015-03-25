@@ -17,7 +17,7 @@ defmodule Bank.AccountDetail do
   end
   
   def process_event(event) do
-    GenServer.cast(@server, event)
+    GenServer.cast({@server, __MODULE__}, event)
   end
 
   def init(:ok) do

@@ -14,8 +14,11 @@ defmodule Bank.AccountRepo do
 
   def get_by_id(id) do
     case KeyPID.get(id) do
-      :not_found -> load_from_eventstore(id)
-      pid -> {:ok, pid}
+      :not_found -> 
+        load_from_eventstore(id)
+      
+      pid -> 
+        {:ok, pid}
     end
   end
 
