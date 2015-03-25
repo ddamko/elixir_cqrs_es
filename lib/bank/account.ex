@@ -55,23 +55,20 @@ defmodule Bank.Account do
     receive do
       {:apply_event, event} ->
         new_state = apply_event(event, state)
-        IO.puts "Apply Event"
-        IO.inspect(new_state)
         loop(new_state)
 
       {:attempt_command, command} ->
         new_state = attempt_command(command, state)
-        IO.puts "Attmempt Command"
         IO.inspect(new_state)
         loop(new_state)
 
       {:process_unsaved_changes, saver} ->
         saver.(state.id, :lists.reverse(state.changes))
-        new_state = state.changes
+        new_state = %{state | :changes => state.changes}
         loop(new_state)
 
       {:load_from_history, events} ->
-        new_state = apply_many_events(events, %State{})
+        new_state = apply_many_events(events, state = %{%State{} | :balance => 0, :changes => []} )
         loop(new_state)
 
       unknown -> 
@@ -90,19 +87,18 @@ defmodule Bank.Account do
   end
 
   def attempt_command({:deposit_money, amount}, state) do
-    new_balance = Map.update(state, :balance, 0, &(&1 + amount))
-    event = %{%MoneyDeposited{} | :id => state.id, :amount => amount, :new_balance => new_balance.balance, :transaction_date => :calendar.local_time}
+    new_balance = state.balance + amount
+    event = %{%MoneyDeposited{} | :id => state.id, :amount => amount, :new_balance => new_balance, :transaction_date => :calendar.local_time}
     apply_new_event(event, state)
   end
 
   def attempt_command({:withdraw_money, amount}, state) do
-    new_balance = Map.update(state, :balance, 0, &(&1 - amount))
-    id = Map.get(state, :id)
-    event = case Map.get(new_balance, :balance) < 0 do
+    new_balance = state.balance - amount
+    event = case new_balance < 0 do
       false ->
-        %{%MoneyWithdrawn{} | :id => id, :amount => amount, :new_balance => new_balance.balance, :transaction_date => :calendar.local_time}
+        %{%MoneyWithdrawn{} | :id => state.id, :amount => amount, :new_balance => new_balance, :transaction_date => :calendar.local_time}
       true ->
-        %{%PaymentDeclined{} | :id => id, :amount => amount, :transaction_date => :calendar.local_time}
+        %{%PaymentDeclined{} | :id => state.id, :amount => amount, :transaction_date => :calendar.local_time}
     end
     apply_new_event(event, state)
   end
