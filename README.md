@@ -44,6 +44,17 @@ Money Withdrawn
 iex(5)> Bank.check_balance "Wolfman"
 50
 
+iex(6)> Bank.withdraw "Wolfman", 100
+Command Sent
+Command Handler: Withdraw Money
+-50
+:ok
+Event Store Published Event
+Event Published
+Event Handler: Payment Declined
+iex(7)> 
+10:49:00.200 [info]  Payment declined for Account: "wolfman". Shame, shame!
+
 ```
 
 
