@@ -27,22 +27,26 @@ defmodule Bank.EventHandler do
   end
 
   def handle_event(event = %AccountCreated{}, state) do
+    IO.puts "Event Handler: Account Created"
     AccountSummary.new_bank_account(event.id)
     AccountDetail.process_event(event)
     {:ok, state}
   end
 
   def handle_event(event = %MoneyDeposited{}, state) do
+    IO.puts "Event Handler: Money Deposited"
     AccountDetail.process_event(event)
     {:ok, state}
   end
 
   def handle_event(event = %MoneyWithdrawn{}, state) do
+    IO.puts "Event Handler: Money Withdrawn"
     AccountDetail.process_event(event)
     {:ok, state}
   end
 
   def handle_event(event = %PaymentDeclined{}, state) do
+    IO.puts "Event Handler: Payment Declined"
     AccountDetail.process_event(event)
     {:ok, state}
   end

@@ -2,7 +2,7 @@ defmodule Bank.Account do
   require Logger
 
   ## Default Timeout
-  @timeout 45000
+  @timeout 60000
 
   defmodule State do
     defstruct [:id, :date_created, :balance, :changes]
@@ -75,7 +75,7 @@ defmodule Bank.Account do
         loop(state)
     after
       @timeout ->
-        #AccountRepo.remove_from_cache(state.id)
+        AccountRepo.remove_from_cache(state.id)
         exit(:normal)
     end
   end
@@ -93,6 +93,7 @@ defmodule Bank.Account do
 
   def attempt_command({:withdraw_money, amount}, state) do
     new_balance = state.balance - amount
+    IO.inspect(new_balance)
     event = case new_balance < 0 do
       false ->
         %{%MoneyWithdrawn{} | :id => state.id, :amount => amount, :new_balance => new_balance, :transaction_date => :calendar.local_time}
@@ -128,7 +129,6 @@ defmodule Bank.Account do
   end
 
   def apply_event(event = %PaymentDeclined{}, state) do
-    IO.puts "Sorry you do not have enough money."
     state
   end
 

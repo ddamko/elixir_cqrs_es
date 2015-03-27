@@ -17,7 +17,7 @@ defmodule Bank.AccountRepo do
       :not_found -> 
         load_from_eventstore(id)
       
-      pid -> 
+      pid ->
         {:ok, pid}
     end
   end
@@ -33,6 +33,7 @@ defmodule Bank.AccountRepo do
     case EventStore.get_events(id) do
       [] ->
         :not_found
+      
       events ->
         pid = Account.new
         Account.load_from_history(pid, events)

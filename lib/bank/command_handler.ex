@@ -1,5 +1,6 @@
 defmodule Bank.CommandHandler do
   use GenEvent
+  require Logger
 
   ## Commands
   alias Bank.Commands.CreateAccount
@@ -27,41 +28,43 @@ defmodule Bank.CommandHandler do
     {:ok, []}
   end
   
-  def handle_event(event = %CreateAccount{}, state) do
-    case AccountRepo.get_by_id(event.id) do
+  def handle_event(command = %CreateAccount{}, state) do
+    IO.puts "Command Handler: Create Account"
+    case AccountRepo.get_by_id(command.id) do
       :not_found ->
         pid = Account.new
-        Account.create(pid, event.id)
+        Account.create(pid, command.id)
         AccountRepo.save(pid)
         {:ok, state}
       
       [] ->
         {:ok, state}
-        
-      _ ->
-        {:ok, state}
     end
   end
   
-  def handle_event(event = %DepositMoney{}, state) do
-    case AccountRepo.get_by_id(event.id) do
+  def handle_event(command = %DepositMoney{}, state) do
+    IO.puts "Command Handler: Deposit Money"
+    case AccountRepo.get_by_id(command.id) do
       :not_found ->
+        Logger.error("No account found for: ~p~n",[command.id])
         {:ok, state}
 
       {:ok, pid} ->
-        Account.deposit(pid, event.amount)
+        Account.deposit(pid, command.amount)
         AccountRepo.save(pid)
         {:ok, state}
     end
   end
 
-  def handle_event(event = %WithdrawMoney{}, state) do
-    case AccountRepo.get_by_id(event.id) do
+  def handle_event(command = %WithdrawMoney{}, state) do
+    IO.puts "Command Handler: Withdraw Money"
+    case AccountRepo.get_by_id(command.id) do
       :not_found ->
+        Logger.error("No account found for: ~p~n",[command.id])
         {:ok, state}
 
       {:ok, pid} ->
-        Account.withdraw(pid, event.amount)
+        Account.withdraw(pid, command.amount)
         AccountRepo.save(pid)
         {:ok, state}
     end
@@ -86,6 +89,4 @@ defmodule Bank.CommandHandler do
   def code_change(_old_vsn, state, _extra) do
     {:ok, state}
   end
-  
-
 end

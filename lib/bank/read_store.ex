@@ -11,11 +11,10 @@ defmodule Bank.ReadStore do
 
   def get_bank_account_summary() do
     [{:bank_account_summary, summary}] = :ets.lookup(:read_store_summary_views, :bank_account_summary)
-    summary
+    if(is_list(summary), do: List.first(summary), else: summary)
   end
 
   def set_bank_account_summary(new_data) do
-    #IO.inspect(new_data)
     :ets.insert(:read_store_summary_views, {:bank_account_summary, new_data})
   end
   

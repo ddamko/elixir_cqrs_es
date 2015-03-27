@@ -1,6 +1,7 @@
 defmodule Bank.AccountDetail do
   use GenServer
   require Logger
+  
   @server __MODULE__
 
   ## Events
@@ -18,8 +19,8 @@ defmodule Bank.AccountDetail do
   
   def process_event(event) do
     {:ok, pid} = @server.start_link
+    #IO.inspect(event)
     GenServer.cast(pid, {:event, event})
-    IO.inspect(event)
   end
 
   def init(:ok) do
@@ -47,13 +48,14 @@ defmodule Bank.AccountDetail do
   end
 
   def handle_cast({:event, event = %PaymentDeclined{}}, details) do
-    Logger.error("Payment declined for Account: ~p. Shame, shame!~n", [event.id])
+    :error_logger.info_msg("Payment declined for Account: ~p. Shame, shame!~n", [event.id])
     {:noreply, details}
   end
 
   def handle_cast({:event, event = %MoneyDeposited{}}, details) do
     new_details = :dict.store(event.id, event.new_balance, details)
     IO.puts "Money Deposited"
+    IO.puts "New State with Changes:"
     update_read_store(new_details)
     {:noreply, new_details}
   end

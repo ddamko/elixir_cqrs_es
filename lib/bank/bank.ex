@@ -31,9 +31,10 @@ defmodule Bank do
   end
 
   def check_balance(account) do
-    details = ReadStore.get_account_details()
+    details = ReadStore.get_bank_account_details()
     dict = details |> Enum.into(HashDict.new)
-    case dict.fetch(dict, account) do
+
+    case HashDict.fetch(dict, account) do
       {:ok, value} -> value
       _ -> :no_account
     end

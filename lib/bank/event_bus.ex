@@ -14,10 +14,14 @@ defmodule Bank.EventBus do
   end
 
   def send_command(command) do
+    IO.puts "Command Sent"
+    IO.inspect(command)
     GenEvent.notify(@server, command)
   end
 
   def publish_event(event) do
+    IO.puts "Event Published"
+    IO.inspect(event)
     GenEvent.notify(@server, event)
   end
 end

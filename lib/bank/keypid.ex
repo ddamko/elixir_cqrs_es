@@ -1,8 +1,6 @@
 defmodule Bank.KeyPID do
   @table_id __MODULE__
 
-  IO.inspect(@table_id)
-
   def init() do
     :ets.new(@table_id, [:public, :named_table])
   end
@@ -30,12 +28,10 @@ defmodule Bank.KeyPID do
           true ->
             pid
           false ->
-            IO.puts "Account for #{key} not found..."
             :not_found
         end
       
       [] ->
-        IO.puts "Creating new account for #{key}..."
         :not_found
     end
   end

@@ -10,13 +10,14 @@ defmodule Bank.EventStore do
 
   def append_events(key, events) do
     stored_events   = get_raw_events(key)
-    new_events      = :lists.reverse(events)
-    combined_events = stored_events ++ new_events
+    new_event       = List.first(:lists.reverse(events))
+    combined_events = stored_events ++ Map.to_list(new_event)
     
     :ets.insert(@table_id, {key, combined_events})
-    :lists.foreach(fn (event) -> 
-      EventBus.publish_event(event)
-    end, new_events)
+
+    IO.puts "Event Store Published Event"
+    IO.inspect(new_event)
+    EventBus.publish_event(new_event)
   end
 
   def get_events(key) do

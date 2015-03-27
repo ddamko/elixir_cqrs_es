@@ -10,7 +10,8 @@ defmodule Bank.AccountSummary do
   end
 
   def new_bank_account(id) do
-    GenServer.cast({@server, __MODULE__}, {:new_bank_account, id})
+    {:ok, pid} = @server.start_link
+    GenServer.cast(pid, {:new_bank_account, id})
   end
 
   def init(:ok) do
@@ -22,7 +23,7 @@ defmodule Bank.AccountSummary do
     {:reply, :ok, state}
   end
 
-  def handle_cast({:new_bank_account, _id}, state) do
+  def handle_cast({:new_bank_account, id}, state) do
     new_summary = Map.update(state, :count_of_accounts, 0, &(&1 + 1))
     ReadStore.set_bank_account_summary(new_summary)
     {:noreply, new_summary}
