@@ -1,7 +1,0 @@
-%{"exjsx": {:git, "git://github.com/talentdeficit/exjsx.git", "d3572b488f10e3b83fadb1fc595fc87f84c35809", []},
-  "exts": {:hex, :exts, "0.2.2"},
-  "json": {:hex, :json, "0.3.2"},
-  "jsx": {:hex, :jsx, "2.4.0"},
-  "rethink": {:git, "git://github.com/EddyShure/rethink.git", "2ddc54672da1a14b37eb5a76f99e81dd5f438422", []},
-  "socket": {:git, "git://github.com/meh/elixir-socket.git", "9bc351e1a442a727b1da03b072a4f4b48170a087", []},
-  "uuid": {:hex, :uuid, "0.1.5"}}
