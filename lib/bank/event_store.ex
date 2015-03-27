@@ -16,7 +16,6 @@ defmodule Bank.EventStore do
     :ets.insert(@table_id, {key, combined_events})
 
     IO.puts "Event Store Published Event"
-    IO.inspect(new_event)
     EventBus.publish_event(new_event)
   end
 

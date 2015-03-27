@@ -55,7 +55,6 @@ defmodule Bank.AccountDetail do
   def handle_cast({:event, event = %MoneyDeposited{}}, details) do
     new_details = :dict.store(event.id, event.new_balance, details)
     IO.puts "Money Deposited"
-    IO.puts "New State with Changes:"
     update_read_store(new_details)
     {:noreply, new_details}
   end

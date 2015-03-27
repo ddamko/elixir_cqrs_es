@@ -70,8 +70,8 @@ defmodule Bank.Account do
         new_state = apply_many_events(events, state = %{%State{} | :balance => 0, :changes => []} )
         loop(new_state)
 
-      unknown -> 
-        Logger.error("Recieved unknown message: ~p~n",[unknown])
+      unknown ->
+        :error_logger.info_msg("Recieved unknown message: ~p~n", [unknown])
         loop(state)
     after
       @timeout ->

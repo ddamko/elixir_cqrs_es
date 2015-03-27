@@ -15,7 +15,7 @@ defmodule Bank do
   end
 
   def close() do
-    BankApp.stop()
+    BankApp.stop(:stop)
   end
 
   def create(account) do
