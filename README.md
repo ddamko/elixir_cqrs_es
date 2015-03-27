@@ -4,7 +4,9 @@ This is a port of Bryan Hunter's [example](https://github.com/bryanhunter/cqrs-w
 
 ### Try it out.
 ```
-cd /elixir_cqrs_es
+git clone https://github.com/ddamko/elixir_cqrs_es.git
+
+cd elixir_cqrs_es
 
 iex -S mix (This will compile and start up the Elixir shell)
 
