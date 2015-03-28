@@ -5,8 +5,9 @@ defmodule BankApp do
     Bank.EventStore.init()
     Bank.ReadStore.init()
     Bank.KeyPID.init()
+    Bank.Connections.Supervisor.start_link
 
-    case Bank.Suppervisor.start_link() do
+    case Bank.Supervisor.start_link() do
       {:ok, pid} ->
         Bank.EventHandler.add_handler()
         Bank.CommandHandler.add_handler()

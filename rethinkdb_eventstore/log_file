@@ -1,0 +1,14 @@
+2015-03-27T16:07:12.954949436 0.031852s notice: Recursively removing directory /home/derek/projects/elixir_cqrs_es/rethinkdb_eventstore/tmp
+2015-03-27T16:07:13.016440107 0.093342s notice: Initializing directory /home/derek/projects/elixir_cqrs_es/rethinkdb_eventstore
+2015-03-27T16:07:13.016589535 0.093491s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/derek/projects/elixir_cqrs_es/rethinkdb_eventstore' did not already exist or is empty.)
+2015-03-27T16:07:13.016638317 0.093540s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-27T16:07:13.023404505 0.100308s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-27T16:07:13.023466456 0.100368s notice: Loading data from directory /home/derek/projects/elixir_cqrs_es/rethinkdb_eventstore
+2015-03-27T16:07:13.781980014 0.858881s info: Automatically using cache size of 3137 MB
+2015-03-27T16:07:13.782725138 0.859626s notice: Listening for intracluster connections on port 29015
+2015-03-27T16:07:13.783164314 0.860065s notice: Listening for client driver connections on port 28015
+2015-03-27T16:07:13.783235032 0.860136s notice: Listening for administrative HTTP connections on port 8080
+2015-03-27T16:07:13.783236548 0.860137s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-27T16:07:13.783237661 0.860139s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-27T16:07:13.783238682 0.860140s notice: Server ready, "eventstore" 3d4348d5-cb04-4b63-8f32-13b7b19b8cb3
+2015-03-27T16:07:13.945155114 1.022057s notice: A newer version of the RethinkDB server is available: 1.16.3. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.

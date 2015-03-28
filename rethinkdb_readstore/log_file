@@ -1,0 +1,14 @@
+2015-03-27T16:09:11.213134200 0.030418s notice: Recursively removing directory /home/derek/projects/elixir_cqrs_es/rethinkdb_readstore/tmp
+2015-03-27T16:09:11.241033746 0.058317s notice: Initializing directory /home/derek/projects/elixir_cqrs_es/rethinkdb_readstore
+2015-03-27T16:09:11.241201120 0.058484s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/derek/projects/elixir_cqrs_es/rethinkdb_readstore' did not already exist or is empty.)
+2015-03-27T16:09:11.241246750 0.058529s notice: Running rethinkdb 1.16.2-1 (GCC 4.9.2)...
+2015-03-27T16:09:11.248699742 0.065985s notice: Running on Linux 3.18.6-1-ARCH x86_64
+2015-03-27T16:09:11.248801151 0.066084s notice: Loading data from directory /home/derek/projects/elixir_cqrs_es/rethinkdb_readstore
+2015-03-27T16:09:11.926826269 0.744109s info: Automatically using cache size of 3122 MB
+2015-03-27T16:09:11.927901902 0.745184s notice: Listening for intracluster connections on port 29016
+2015-03-27T16:09:11.928548259 0.745831s notice: Listening for client driver connections on port 28017
+2015-03-27T16:09:11.928650141 0.745933s notice: Listening for administrative HTTP connections on port 8081
+2015-03-27T16:09:11.928654123 0.745936s notice: Listening on addresses: 127.0.0.1, ::1
+2015-03-27T16:09:11.928655709 0.745938s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-03-27T16:09:11.928657227 0.745939s notice: Server ready, "readstore" 96ded8aa-b9a7-4a89-b4b2-64400162d3e1
+2015-03-27T16:09:12.047006448 0.864289s notice: A newer version of the RethinkDB server is available: 1.16.3. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.

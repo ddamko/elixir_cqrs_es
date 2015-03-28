@@ -1,4 +1,4 @@
-defmodule Bank.Suppervisor do
+defmodule Bank.Supervisor do
   use Supervisor
 
   def start_link() do
@@ -11,9 +11,9 @@ defmodule Bank.Suppervisor do
 
   def init(:ok) do
     children = [
-      worker(Bank.EventBus,       [], restart: :temporary),
-      worker(Bank.AccountDetail,  [], restart: :temporary),
-      worker(Bank.AccountSummary, [], restart: :temporary)
+      worker(Bank.EventBus,                [], restart: :permanent),
+      worker(Bank.AccountDetail,           [], restart: :permanent),
+      worker(Bank.AccountSummary,          [], restart: :permanent)
     ]
 
     supervise(children, strategy: :one_for_one)
