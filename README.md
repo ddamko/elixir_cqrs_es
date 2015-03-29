@@ -1,4 +1,4 @@
-# Elixir CQRS Event Sourcing
+# Elixir CQRS with Event Sourcing
 
 This is a port of Bryan Hunter's [example](https://github.com/bryanhunter/cqrs-with-erlang/tree/ndc-oslo) in Erlang.
 
