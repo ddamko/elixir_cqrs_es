@@ -1,5 +1,12 @@
 # Elixir CQRS with Event Sourcing
 
+## About Elixir and CQRS
+Elixir is a new functional language built on the Erlang VM (Beam) which is an industry-proven functional programming language that simplifies writing reliable, concurrent, distributed systems.
+
+CQRS is an architectural pattern that separates commands (which mutate state) from queries (which return values). With CQRS the “read” data store and the “write” data store can be on different severs, can use different storage engines, and can be scaled independently. CQRS is often linked with the Event Sourcing pattern which models state as a series of events (past tense verbs) rather than a single “latest” value. What works for an accountant’s ledger and for Git can work for our “write” store too. Given a series of events we can deal with concurrency and collisions more intelligently than “last guy wins”. We can also define varied service level agreements for commands and queries.
+
+CQRS promotes distribution, concurrency and eventual consistency which is dandy until we attempt to code an implementation with conventional tools like C# or Java. Lucky for us Elixir/Erlang is unconventional in all the right ways. Many of the ideas of CQRS dovetail perfectly with the sweet-spots of Elixir/Erlang.
+
 This is a port of Bryan Hunter's [example](https://github.com/bryanhunter/cqrs-with-erlang/tree/ndc-oslo) in Erlang.
 
 ### Try it out.
