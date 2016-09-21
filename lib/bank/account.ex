@@ -63,7 +63,7 @@ defmodule Bank.Account do
 
       {:process_unsaved_changes, saver} ->
         saver.(state.id, :lists.reverse(state.changes))
-        new_state = %{state | :changes => state.changes}
+        new_state = %{state | :changes => []}
         loop(new_state)
 
       {:load_from_history, events} ->
