@@ -1,4 +1,4 @@
-defmodule Bank.Suppervisor do
+defmodule Bank.Supervisor do
   use Supervisor
 
   def start_link() do
